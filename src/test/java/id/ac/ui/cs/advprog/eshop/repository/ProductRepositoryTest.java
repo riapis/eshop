@@ -87,13 +87,48 @@ class ProductRepositoryTest {
         Product editedProduct = new Product();
         editedProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         editedProduct.setProductName("Sampo Cap Bango");
-        editedProduct.setProductQuantity(0);
+        editedProduct.setProductQuantity(-5);
         productRepository.edit(editedProduct);
 
         product = productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6");
         assertEquals(editedProduct.getProductId(), product.getProductId());
         assertEquals(editedProduct.getProductName(), product.getProductName());
         assertEquals(editedProduct.getProductQuantity(), product.getProductQuantity());
+    }
+
+    @Test
+    void testFindProductIfFalseID() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product editedProduct = new Product();
+        editedProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        editedProduct.setProductName("Sampo Cap Bango");
+        editedProduct.setProductQuantity(5);
+        productRepository.edit(editedProduct);
+
+        product = productRepository.findById("x");
+        assertNull(product);
+    }
+
+    @Test
+    void testEditProductIfIdDoesntExist() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Product editedProduct = new Product();
+        editedProduct.setProductId("eb558e9f-1c39");
+        editedProduct.setProductName("Sampo Cap Bango");
+        editedProduct.setProductQuantity(-5);
+        Product uneditedProduct = productRepository.edit(editedProduct);
+
+        assertNull(uneditedProduct);
     }
 
     @Test
@@ -108,5 +143,4 @@ class ProductRepositoryTest {
 
         assertFalse(productRepository.findAll().hasNext());
     }
-
 }
