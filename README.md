@@ -1,5 +1,15 @@
 > Fari Hafizh Ramadhan - 2206083691
- 
+
+# Modul 2: CI/CD & DevOps
+
+## Refleksi
+
+1. m
+
+2. Menurut saya, implementasi yang saya lakukan sudah memenuhi prinsip CI/CD.
+   untuk *continuous integration* saya terapkan dengan menggunakan *workflows* seperti `ci.yml`, `scorecard.yml`, dan `pmd_action.yml`.
+   untuk *continuous deployment* saya menggunakan `koyeb` untuk melakukan *auto-deployment* saat ada perubahan di branch main.
+
 # Modul 1: Coding Standards
 
 ## Refleksi 1
@@ -11,12 +21,13 @@ kejelasan kode saya, diantaranya
 - Penggunaan fungsi yang di dalamnya hanya mengerjakan 1 pekerjaan saja
 - Tidak berlebihan menuliskan komen
 
-Untuk kode saya dalam lab ini, saya menyadari bahwa saya tidak menerapkan ***secure coding*** yang artinya tidak ada 
+Untuk kode saya dalam lab ini, saya menyadari bahwa saya tidak menerapkan ***secure coding*** yang artinya tidak ada
 filtering terhadap informasi yang terpaparkan. Hal ini tentunya akan berbahaya
 saat kita membuat program yang menyimpan data pribadi seseorang. Hal tersebut dapat dihindari
 dengan menerapkan autentikasi yang lebih baik.
 
 ## Refleksi 2
+
 1. Setelah menulis uji unit, saya merasa lebih percaya diri dengan kode saya.
    Untuk uji unit sendiri sebisanya tergantung kompleksnya suatu kelas dan fungsi.
    Uji unit juga diusahakan dapat mencakup banyak skenario dan kasus untuk mengurangi
@@ -24,7 +35,6 @@ dengan menerapkan autentikasi yang lebih baik.
 
 
 2. Ketika membuat *functional test* baru dengan prosedur dan variabel yang sama, ada kemungkinan kita merusak *code cleanliness*.
-Dalam pembuatannya kita harus mempertimbangkan berbagai hal, seperti menghindari duplikasi kode, memastikan keterbacaan dan 
-pemeliharaan dengan format penamaan yang konsisten, serta menjaga isolasi uji untuk mencegah ketergantungan. Dengan memerhatikan hal - hal
-tersebut, kita bisa menjaga *code cleanliness*.
-
+   Dalam pembuatannya kita harus mempertimbangkan berbagai hal, seperti menghindari duplikasi kode, memastikan keterbacaan dan
+   pemeliharaan dengan format penamaan yang konsisten, serta menjaga isolasi uji untuk mencegah ketergantungan. Dengan memerhatikan hal - hal
+   tersebut, kita bisa menjaga *code cleanliness*.
