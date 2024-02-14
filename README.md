@@ -4,7 +4,13 @@
 
 ## Refleksi
 
-1. m
+1. Setelah dilakukan *code scanning* terlihat beberapa *issue* yang ditemukan, beberapa diantaranya:
+   - **Unused import**:
+   Dengan menghapus import - import yang tidak digunakan.
+
+   - **Maintained**:
+   Dengan melakukan *maintenance* rutin terhadap kode kita.
+   
 
 2. Menurut saya, implementasi yang saya lakukan sudah memenuhi prinsip CI/CD.
    untuk *continuous integration* saya terapkan dengan menggunakan *workflows* seperti `ci.yml`, `scorecard.yml`, dan `pmd_action.yml`.
