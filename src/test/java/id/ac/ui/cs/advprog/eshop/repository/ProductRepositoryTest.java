@@ -108,4 +108,5 @@ class ProductRepositoryTest {
 
         assertFalse(productRepository.findAll().hasNext());
     }
+
 }
