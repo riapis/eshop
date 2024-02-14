@@ -50,7 +50,7 @@ class ProductControllerTest {
         String returnedValue = productController.productListPage(model);
 
         verify(productService).findAll();
-        assertEquals("ListProduct", returnedValue);
+        assertEquals("ProductList", returnedValue);
     }
 
     @Test
