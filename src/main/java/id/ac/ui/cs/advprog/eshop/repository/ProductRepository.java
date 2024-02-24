@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @Repository
-public class ProductRepository{
+public class ProductRepository implements ProductRepoInterface{
     private List<Product> productData = new ArrayList<>();
     private ProductFinder productFinder = new ProductFinder();
 
