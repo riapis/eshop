@@ -1,5 +1,31 @@
 > Fari Hafizh Ramadhan - 2206083691
 
+# Modul 3: Maintainability & OO Principles
+
+## Refleksi
+
+1. Prinsip yang saya gunakan sebagai berikut:
+- Prinsip Tanggung Jawab Tunggal (SRP): Saya memisahkan fungsi-fungsi yang memiliki tugas atau tanggung jawab yang berbeda ke dalam kelas-kelas terpisah sehingga setiap kelas hanya fokus pada satu tugas spesifik. Sebagai contoh, saya memisahkan CarController dari ProductController dan ProductFinder dari ProductRepository. 
+
+- Prinsip Segregasi Interface (ISP): Setiap kelas diimplementasikan dengan antarmuka yang relevan dengan fungsinya. Sebagai contoh, CarRepository mengimplementasikan CarRepoInterface, dan ProductRepository mengimplementasikan ProductRepoInterface. Begitu pula dengan implementasi antarmuka pada layanan, seperti ProductService dan CarService.
+
+- Prinsip Inversi Ketergantungan (DIP): Kelas seharusnya bergantung pada antarmuka atau kelas abstrak, bukan kelas konkret. Sebagai contoh, pada CarController, carService seharusnya menggunakan antarmuka CarService, bukan langsung menggunakan CarServiceImpl.
+
+2. Beberapa manfaat sebagai berikut:
+- Kode Lebih Mudah Dimengerti
+Contoh: CarController untuk logika kendaraan, ProductController untuk logika produk.
+- Ketergantungan Terbalik
+Membuat proyek lebih mudah diuji dan dikonfigurasi ulang.
+- Penggunaan Kembali Kode
+Memungkinkan penggunaan kembali kode tanpa banyak modifikasi.
+
+3. Beberapa kerugian sebagai berikut:
+- Kesulitan Pemeliharaan
+Contoh: Satu kelas Controller yang menangani banyak logika terkait.
+- Ketergantungan yang Kuat
+Contoh: CarController yang bergantung langsung pada CarServiceImpl.
+- Duplikasi Kode
+Contoh: Fungsi yang serupa diimplementasikan berulang kali dalam kelas yang berbeda.
 # Modul 2: CI/CD & DevOps
 
 ## Refleksi
