@@ -2,6 +2,8 @@ package id.ac.ui.cs.advprog.eshop.repository;
 
 import id.ac.ui.cs.advprog.eshop.model.Car;
 import org.springframework.stereotype.Repository;
+import id.ac.ui.cs.advprog.eshop.repository.CarFinder;
+
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -12,6 +14,7 @@ import java.util.UUID;
 public class CarRepository {
     static int id = 0;
     private List<Car> carData = new ArrayList<>();
+    private CarFinder carFinder = new CarFinder();
     public Car create(Car car){
         if(car.getCarId() == null){
             UUID uuid = UUID.randomUUID();
@@ -22,16 +25,11 @@ public class CarRepository {
     }
 
     public Iterator<Car> findAll(){
-        return carData.iterator();
+        return carFinder.findAll(carData);
     }
 
     public Car findById(String id){
-        for(Car car:carData){
-            if(car.getCarId().equals(id)){
-                return car;
-            }
-        }
-        return null;
+        return carFinder.findById(id, carData);
     }
 
     public Car update(String id, Car updatedCar){
