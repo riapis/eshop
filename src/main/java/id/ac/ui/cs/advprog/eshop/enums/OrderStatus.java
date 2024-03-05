@@ -8,7 +8,7 @@ public enum OrderStatus {
     WAITING_PAYMENT("WAITING_PAYMENT"),
     FAILED("FAILED"),
     SUCCESS("SUCCESS"),
-    CANCELED("CANCELLED");
+    CANCELLED("CANCELLED");
 
     private final String value;
 
