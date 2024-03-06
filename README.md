@@ -1,5 +1,20 @@
 > Fari Hafizh Ramadhan - 2206083691
 
+# Modul 4: Refactoring and TDD
+
+## Refleksi
+
+1. TTD *flow* ini sangat lah berguna menurut saya. Dengan membuat suite test 
+telebih dahulu sebelum membuat model, kita terpaksa untuk selalu mengecek
+keberhasilan test - test tersebut. Hal ini dapat meningkatkan *correctness*, 
+*maintainability*, dan *productive workflow*. Namun, dibalik manfaat melakukan TTD *flow*
+saya pribadi masih kesulitan dalam mengimplementasikannya karena belum terbiasa
+dalam membuat test sebelum modelnya.
+
+
+2. Saya belum yakin telah menerapkan F.I.R.S.T *principle* sepenuhnya.Untuk kedepannya
+mungkin saya akan menambahkan *tests* untuk mencapai hal tersebut.
+
 # Modul 3: Maintainability & OO Principles
 
 ## Refleksi
