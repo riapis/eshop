@@ -74,11 +74,22 @@ class PaymentTest {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
                 PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
-        assertEquals("13652556-012a-4c07-b546-54eb1396d79b" ,payment.getId());
+        assertEquals("13652556-012a-4c07-b546-54eb1396d79b", payment.getId());
         assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
-        assertNull(payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         assertSame(order, payment.getOrder());
         assertSame(paymentData, payment.getPaymentData());
+    }
+
+    @Test
+    void testCreateVoucherPaymentRejectedStatus() {
+        paymentData.clear();
+        paymentData.put("voucherCode", "ESHOP1234ABC");
+
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
+
+        assertEquals("REJECTED", payment.getStatus());
     }
 
     @Test
@@ -98,6 +109,7 @@ class PaymentTest {
 
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
+
     @Test
     void testCreatePaymentRejectedStatus(){
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
@@ -105,5 +117,27 @@ class PaymentTest {
                 PaymentStatus.REJECTED.getValue());
 
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+    }
+
+    @Test
+    void testCreateCodPaymentSuccessStatus() {
+        paymentData.clear();
+        paymentData.put("address", "Jl. Yang Benar");
+        paymentData.put("deliveryFee", "12000");
+
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                PaymentMethod.CASH_ON_DELIVERY.getValue(), order, paymentData);
+        assertEquals("SUCCESS", payment.getStatus());
+    }
+
+    @Test
+    void testCreateCodPaymentRejectedStatus() {
+        paymentData.clear();
+        paymentData.put("address", "");
+        paymentData.put("deliveryFee", "");
+
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                PaymentMethod.CASH_ON_DELIVERY.getValue(), order, paymentData);
+        assertEquals("REJECTED", payment.getStatus());
     }
 }
