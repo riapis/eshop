@@ -56,22 +56,15 @@ public class PaymentServiceImplTest {
     }
 
     @Test
-    void testCreateOrder() {
+    void testCreatePayment() {
         Payment payment = payments.get(1);
-        doReturn(payment).when(paymentRepository).save(payment);
+        doReturn(payment).when(paymentRepository).save(any(Payment.class));
 
         Payment result = paymentService.addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
-        verify(paymentRepository, times(1)).save(payment);
-        assertEquals(payment.getId(), result.getId());
-    }
-
-    @Test
-    void testCreateOrderIfAlreadyExists() {
-        Payment payment = payments.get(1);
-        doReturn(payment).when(paymentRepository).save(payment);
-
-        assertNull(paymentService.addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData()));
-        verify(paymentRepository, times(0)).save(payment);
+        verify(paymentRepository, times(1)).save(any(Payment.class));
+        assertEquals(payment.getMethod(), result.getMethod());
+        assertSame(payment.getPaymentData(), result.getPaymentData());
+        assertSame(payment.getOrder(), result.getOrder());
     }
 
     @Test
@@ -114,18 +107,8 @@ public class PaymentServiceImplTest {
         doReturn(payment).when(paymentRepository).findById(payment.getId());
 
         assertThrows(IllegalArgumentException.class, () -> {
-            paymentService.setStatus(payment.getId(), "MEOW");
-        });
+            paymentService.setStatus(payment, "MEOW");
 
-        verify(paymentRepository, times(0)).save(any(Payment.class));
-    }
-
-    @Test
-    void testUpdateStatusInvalidOrderId() {
-        doReturn(null).when(paymentRepository).findById("zczc");
-
-        assertThrows(NoSuchElementException.class, () -> {
-            paymentService.setStatus("zczc", OrderStatus.SUCCESS.getValue());
         });
 
         verify(paymentRepository, times(0)).save(any(Payment.class));
