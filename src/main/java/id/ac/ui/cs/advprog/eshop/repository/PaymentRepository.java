@@ -12,17 +12,15 @@ public class PaymentRepository {
     private List<Payment> paymentList = new ArrayList<>();
 
     public Payment save(Payment payment) {
-        int i = 0;
-        for (Payment savedPayment : paymentList) {
-            if (savedPayment.getId().equals(payment.getId())) {
-                paymentList.remove(i);
-                paymentList.add(i, payment);
-                return payment;
-            }
-            i++;
+        Payment existingPayment = findById(payment.getId());
+
+        if (existingPayment != null) {
+            int index = paymentList.indexOf(existingPayment);
+            paymentList.set(index, payment);
+        } else {
+            paymentList.add(payment);
         }
 
-        paymentList.add(payment);
         return payment;
     }
 
