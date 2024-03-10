@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,12 +13,10 @@ public class Payment {
     private String method;
     private Order order;
     private Map<String, String> paymentData;
-    @Setter
     private String status;
 
     public Payment(String id, String method, Order order, Map<String, String> paymentData){
         this.id = id;
-        setStatus("SUCCESS");
 
         if (!PaymentMethod.contains(method)){
             throw new IllegalArgumentException();
@@ -33,6 +32,19 @@ public class Payment {
             throw new IllegalArgumentException();
         }
         this.order = order;
+    }
+
+    public Payment(String id, String method, Order order, Map<String, String> paymentData, String status){
+        this(id, method, order, paymentData);
+        this.setStatus(status);
+    }
+
+    public void setStatus(String status) {
+        if (status.equals("SUCCESS") || status.equals("REJECTED")) {
+            this.status = status;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
 }
