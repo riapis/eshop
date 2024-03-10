@@ -33,10 +33,10 @@ public class Payment {
             throw new IllegalArgumentException();
         }
         this.order = order;
-    }
 
-    String status = paymentDataCheck();
-    setStatus(status);
+        String status = paymentDataCheck();
+        setStatus(status);
+    }
 
     public Payment(String id, String method, Order order, Map<String, String> paymentData, String status){
         this(id, method, order, paymentData);
@@ -52,39 +52,48 @@ public class Payment {
     }
 
     private String paymentDataCheck() {
-        if(this.method.equals(PaymentMethod.VOUCHER_CODE.getValue())) {
-            String voucherCode = this.paymentData.get("voucherCode");
+        if (PaymentMethod.VOUCHER_CODE.getValue().equals(this.method)) {
+            return checkVoucherPayment();
+        } else {
+            return checkCashOnDeliveryPayment();
+        }
+    }
 
-            if(voucherCode.length() == 16){
-                if(voucherCode.startsWith("ESHOP")){
-                    String numericPart = voucherCode.substring(5, 16);
-                    if(hasEightNumeric(numericPart)){
-                        return PaymentStatus.SUCCESS.getValue();
-                    }
-                }
-            }
+    private String checkVoucherPayment() {
+        String voucherCode = this.paymentData.get("voucherCode");
 
+        if (isValidVoucherCode(voucherCode)) {
+            return PaymentStatus.SUCCESS.getValue();
+        }
+
+        return PaymentStatus.REJECTED.getValue();
+    }
+
+    private boolean isValidVoucherCode(String voucherCode) {
+        return voucherCode.length() == 16 && voucherCode.startsWith("ESHOP") &&
+                hasEightNumeric(voucherCode.substring(5));
+    }
+
+    private String checkCashOnDeliveryPayment() {
+        String address = this.paymentData.get("address");
+        String deliveryFee = this.paymentData.get("deliveryFee");
+
+        if (address.isBlank() || deliveryFee.isBlank()) {
             return PaymentStatus.REJECTED.getValue();
         } else {
-            String address = this.paymentData.get("address");
-            String deliveryFee = this.paymentData.get("deliveryFee");
-
-            if(address.isBlank() || deliveryFee.isBlank()){
-                return PaymentStatus.REJECTED.getValue();
-            }else{
-                return PaymentStatus.SUCCESS.getValue();
-            }
+            return PaymentStatus.SUCCESS.getValue();
         }
     }
 
     private static boolean hasEightNumeric(String str) {
         int count = 0;
-        for(int i=0; i<str.length();i++){
-            char ch = str.charAt(i);
-            if(Character.isDigit(ch)){
+        for (char ch : str.toCharArray()) {
+            if (Character.isDigit(ch)) {
                 count++;
             }
         }
-        return count==8;
+        return count == 8;
     }
+
+
 }
