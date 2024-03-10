@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PaymentTest {
     private Map<String, String> paymentData;
@@ -77,8 +75,34 @@ class PaymentTest {
 
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b" ,payment.getId());
         assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
+        assertNull(payment.getStatus());
         assertSame(order, payment.getOrder());
         assertSame(paymentData, payment.getPaymentData());
     }
 
+    @Test
+    void testCreatePaymentInvalidStatus(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                    PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
+            payment.setStatus("INVALID");
+        });
+    }
+
+    @Test
+    void testCreatePaymentSuccessStatus(){
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
+        payment.setStatus("SUCCESS");
+
+        assertEquals("SUCCESS", payment.getStatus());
+    }
+    @Test
+    void testCreatePaymentRejectedStatus(){
+        Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
+        payment.setStatus("REJECTED");
+
+        assertEquals("REJECTED", payment.getStatus());
+    }
 }
