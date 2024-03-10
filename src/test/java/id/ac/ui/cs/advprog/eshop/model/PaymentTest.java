@@ -84,24 +84,22 @@ class PaymentTest {
     void testCreatePaymentInvalidStatus(){
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                    PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
-            payment.setStatus("INVALID");
+                    PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "INVALID");
+
         });
     }
 
     @Test
     void testCreatePaymentSuccessStatus(){
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
-        payment.setStatus("SUCCESS");
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "SUCCESS");
 
         assertEquals("SUCCESS", payment.getStatus());
     }
     @Test
     void testCreatePaymentRejectedStatus(){
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
-        payment.setStatus("REJECTED");
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "REJECTED");
 
         assertEquals("REJECTED", payment.getStatus());
     }
