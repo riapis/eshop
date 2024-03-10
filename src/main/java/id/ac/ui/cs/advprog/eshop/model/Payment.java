@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,23 +19,20 @@ public class Payment {
         this.id = id;
         setStatus("SUCCESS");
 
-        if (method.equals("VoucherCode") || method.equals("CashOnDelivery")){
-            this.method = method;
-        }else {
+        if (!PaymentMethod.contains(method)){
             throw new IllegalArgumentException();
         }
+        this.method = method;
 
         if(paymentData.isEmpty()){
             throw new IllegalArgumentException();
-        }else {
-            this.paymentData = paymentData;
         }
+        this.paymentData = paymentData;
 
         if(order == null){
             throw new IllegalArgumentException();
-        }else {
-            this.order = order;
         }
+        this.order = order;
     }
 
 }

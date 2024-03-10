@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +55,8 @@ class PaymentTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                    "VoucherCode", order, paymentData);
+                    PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
+
         });
     }
 
@@ -64,17 +66,17 @@ class PaymentTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                    "VoucherCode", null, paymentData);
+                    PaymentMethod.VOUCHER_CODE.getValue(), null, paymentData);
         });
     }
 
     @Test
     void testCreatePaymentDefaultValue() {
         Payment payment = new Payment("13652556-012a-4c07-b546-54eb1396d79b",
-                "VoucherCode", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
         assertEquals("13652556-012a-4c07-b546-54eb1396d79b" ,payment.getId());
-        assertEquals("VoucherCode", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
         assertSame(paymentData, payment.getPaymentData());
     }
